@@ -1,0 +1,44 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.apache.maven.plugin.my.unit</groupId>
+  <artifactId>project-to-test</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>Test MustacheMojo</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.10</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>mustache-maven-plugin</artifactId>
+        <configuration>
+          <encoding>UTF-8</encoding>
+          <templates>
+            <template>
+              <templateFile>${basedir}/src/test/resources/test-template.mustache</templateFile>
+              <outputPath>${basedir}/target/generated-test-sources/output.txt</outputPath>
+              <!-- Context needs to be formatted this way, since it has to be a 
+                   valid YAML -->
+              <context><![CDATA[
+    ---
+    text: Hello test
+    ]]>
+              </context>
+            </template>
+          </templates>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
